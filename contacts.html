@@ -1,0 +1,258 @@
+<!-- Developer Muffler -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты - Мир Книг</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="icon" href="image/logo.png">
+</head>
+<body>
+  <section class="header container">
+    <div class="hero">
+      <div class="logo-contaienr">
+        <a href="index.html"><img class="logo" src="image/logo.png" alt="logo"></a>
+        <p class="logo-text"><span style="color: #ED553B; font-size: 20px;">Мир</span><br> Книг</p>
+      </div>
+      <div class="search-container">
+        <input class="search" type="search" placeholder="Найти Книги" id="searchInput" autocomplete="off">
+        <button class="btn-search" id="searchBtn"><img class="lupa" src="image/Vector.png" alt="btn"></button>
+        <div class="search-suggestions" id="searchSuggestions"></div>
+      </div>
+      <div class="links-container">
+        <a href="account.html" class="links user" style="text-transform: uppercase; display: flex; align-items: center; gap: 8px;">
+          <div style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px;">
+            <img id="headerAvatar" src="" alt="" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; display: none;">
+            <i id="defaultUserIcon" class='bx bx-user' style="font-size: 18px;"></i>
+          </div>
+          <span id="accountName" style="line-height: 24px;">Аккаунт</span>
+        </a>
+        <a href="#" class="links cart" id="cartBtn" style="text-transform: uppercase; cursor: pointer;"><i class='bx bx-shopping-bag'></i>Корзина:<span class="summa" id="cartTotal">(0₽)</span></a>
+        <a href="#" class="links heart" id="wishlistBtn" style="text-transform: uppercase;"><i class='bx bx-heart'></i>Избранное</a>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="index.html" class="nav-links home">ГЛАВНАЯ</a>
+      <a href="about.html" class="nav-links about">О НАС</a>
+      <a href="index.html#catalog" class="nav-links books">КНИГИ</a>
+      <a href="new.html" class="nav-links new">НОВИНКИ</a>
+      <a href="contacts.html" class="nav-links contacts active">КОНТАКТЫ</a>
+    </nav>
+  </section>
+
+  <div id="toast-notification" class="toast-notification">
+    <i class='bx bx-check-circle'></i>
+    <span id="toast-message">Товар добавлен в корзину</span>
+  </div>
+
+  <button id="scrollToTop" class="scroll-to-top">
+    <i class='bx bx-up-arrow-alt'></i>
+  </button>
+
+
+  <div id="cartSidebar" class="cart-sidebar">
+    <div class="cart-sidebar-header">
+      <h3><i class='bx bx-shopping-bag'></i> Моя корзина</h3>
+      <button id="closeCartBtn" class="close-cart-btn"><i class='bx bx-x'></i></button>
+    </div>
+    <div class="cart-sidebar-items" id="cartItems"></div>
+    <div class="cart-sidebar-footer">
+      <div class="cart-summary">
+        <div class="cart-subtotal">
+          <span>Товары (<span id="cartItemsCount">0</span>)</span>
+          <span id="cartSubtotal">0₽</span>
+        </div>
+        <div class="cart-delivery-line">
+          <span>Доставка</span>
+          <span id="cartDelivery">0₽</span>
+        </div>
+        <div class="cart-total">
+          <span>Итого</span>
+          <span id="cartSidebarTotal">0₽</span>
+        </div>
+      </div>
+      <div class="cart-delivery-info" id="cartDeliveryInfo"></div>
+      <div class="cart-agreement">
+        <label class="checkbox-label">
+          <input type="checkbox" id="agreeCheckbox">
+          <span class="checkmark"></span>
+          <span class="agreement-text">Я согласен с <a href="#">условиями</a> и <a href="#">политикой конфиденциальности</a></span>
+        </label>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn" disabled>Оформить заказ →</button>
+    </div>
+  </div>
+
+  <div id="cartOverlay" class="cart-overlay"></div>
+
+  <div id="wishlistSidebar" class="wishlist-sidebar">
+    <div class="wishlist-sidebar-header">
+      <h3><i class='bx bx-heart'></i> Мои избранные</h3>
+      <button id="closeWishlistBtn" class="close-wishlist-btn"><i class='bx bx-x'></i></button>
+    </div>
+    <div class="wishlist-sidebar-items" id="wishlistItems"></div>
+    <div class="wishlist-sidebar-footer">
+      <div class="wishlist-summary">
+        <div class="wishlist-count">
+          <span>Всего книг: <span id="wishlistCount">0</span></span>
+        </div>
+      </div>
+      <button class="add-all-to-cart-btn" id="addAllToCartBtn">Добавить все в корзину</button>
+      <p class="wishlist-info">Сохраняйте понравившиеся книги и возвращайтесь к ним позже</p>
+    </div>
+  </div>
+
+  <div id="wishlistOverlay" class="wishlist-overlay"></div>
+
+  <div class="contacts-section container">
+    <div class="contacts-hero">
+      <h1 class="contacts-title" style="color: #ED553B;">Контакты</h1>
+      <p class="contacts-subtitle">Свяжитесь с нами любым удобным способом</p>
+    </div>
+
+    <div class="contacts-grid">
+      <div class="contacts-info">
+        <h2 class="contacts-heading">Наши контакты</h2>
+        <div class="contacts-list">
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class='bx bx-map'></i>
+            </div>
+            <div class="contact-details">
+              <h3>Адрес</h3>
+              <p>г. Назрань, ул. Картоева, 154<br>ТК «Ковчег» (левое крыло)</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class='bx bx-phone'></i>
+            </div>
+            <div class="contact-details">
+              <h3>Телефоны</h3>
+              <p>+7 (928) 799-07-46</p>
+              <p>+7 (918) 812-68-44</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class='bx bx-envelope'></i>
+            </div>
+            <div class="contact-details">
+              <h3>Email</h3>
+              <p>info@mirknig.ru</p>
+              <p>sales@mirknig.ru</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">
+              <i class='bx bx-time'></i>
+            </div>
+            <div class="contact-details">
+              <h3>Режим работы</h3>
+              <p>Понедельник - Пятница: 10:00 - 20:00</p>
+              <p>Суббота - Воскресенье: 11:00 - 18:00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contacts-form">
+        <h2 class="contacts-heading">Написать нам</h2>
+        <form id="contactForm">
+          <div class="form-group">
+            <input type="text" placeholder="Ваше имя" id="contactName" required>
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="Ваш Email" id="contactEmail" required>
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="Тема сообщения" id="contactSubject">
+          </div>
+          <div class="form-group">
+            <textarea placeholder="Ваше сообщение" id="contactMessage" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="contact-submit-btn">Отправить сообщение</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="contacts-social">
+      <h2 class="contacts-heading">Мы в соцсетях</h2>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class='bx bxl-vk'></i><span>ВКонтакте</span></a>
+        <a href="#" class="social-link"><i class='bx bxl-telegram'></i><span>Telegram</span></a>
+        <a href="#" class="social-link"><i class='bx bxl-instagram'></i><span>Instagram</span></a>
+        <a href="#" class="social-link"><i class='bx bxl-whatsapp'></i><span>WhatsApp</span></a>
+      </div>
+    </div>
+
+    <div class="contacts-map">
+      <h2 class="contacts-heading">Как нас найти</h2>
+      <div class="map-container">
+        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A3e7c8f9a2b1d4e5f6g7h8i9j0k1l2m3n&source=constructor" width="100%" height="400" frameborder="0"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer-container container">
+    <div class="footer-row">
+      <div class="footer-col">
+        <div class="footer-logo-wrapper">
+          <img src="image/logo.png" alt="logo" class="footer-logo">
+          <div class="footer-logo-text">
+            <span style="color: #ED553B; font-weight: 700;">Мир</span>
+            <span style="font-weight: 700;"> Книг</span>
+          </div>
+        </div>
+        <p class="footer-description">Крупнейший книжный магазин в Ингушетии. Более 10 000 книг на любой вкус. Доставка по всей России.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-col-title">Навигация</h4>
+        <div class="footer-nav">
+          <a href="index.html">ГЛАВНАЯ</a>
+          <a href="about.html">О НАС</a>
+          <a href="index.html#catalog">КНИГИ</a>
+          <a href="new.html">НОВИНКИ</a>
+          <a href="contacts.html">КОНТАКТЫ</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-col-title">Контакты</h4>
+        <div class="footer-contacts">
+          <p><i class='bx bx-phone'></i> +7 (928) 799-07-46</p>
+          <p><i class='bx bx-phone'></i> +7 (918) 812-68-44</p>
+          <p><i class='bx bx-envelope'></i> info@mirknig.ru</p>
+          <p><i class='bx bx-map'></i> г. Назрань, ул. Картоева, 154<br>ТК «Ковчег» (левое крыло)</p>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-col-title">Режим работы</h4>
+        <div class="footer-contacts">
+          <p><i class='bx bx-time'></i> Пн-Пт: 10:00 - 20:00</p>
+          <p><i class='bx bx-time'></i> Сб-Вс: 11:00 - 18:00</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="copyright">© 2026 Мир Книг. Все права защищены.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Пользовательское соглашение</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/wishlist.js"></script>
+  <script src="js/account.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

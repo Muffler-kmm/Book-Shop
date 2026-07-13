@@ -1,0 +1,480 @@
+<!-- Developer Muffler -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мир Книг</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="icon" href="image/logo.png">
+</head>
+<body>
+  <section class="header container">
+    <div class="hero">
+      <div class="logo-contaienr">
+        <img class="logo" src="image/logo.png" alt="logo">
+        <p class="logo-text"><span style="color: #ED553B; font-size: 20px;">Мир</span><br> Книг</p>
+      </div>
+      <div class="search-container">
+        <input class="search" type="search" placeholder="Найти Книги" id="searchInput" autocomplete="off">
+        <button class="btn-search" id="searchBtn"><img class="lupa" src="image/Vector.png" alt="btn"></button>
+        <div class="search-suggestions" id="searchSuggestions"></div>
+      </div>
+      <div class="links-container">
+        <a href="account.html" class="links user" style="text-transform: uppercase; display: flex; align-items: center; gap: 8px;">
+          <div style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px;">
+            <img id="headerAvatar" src="" alt="" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; display: none;">
+            <i id="defaultUserIcon" class='bx bx-user' style="font-size: 18px;"></i>
+          </div>
+          <span id="accountName" style="line-height: 24px;">Аккаунт</span>
+        </a>
+        <a href="#" class="links cart" id="cartBtn" style="text-transform: uppercase; cursor: pointer;"><i class='bx bx-shopping-bag'></i>Корзина:<span class="summa" id="cartTotal">(0₽)</span></a>
+        <a href="#" class="links heart" id="wishlistBtn" style="text-transform: uppercase;"><i class='bx bx-heart'></i>Избранное</>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="index.html" class="nav-links active home">ГЛАВНАЯ</a>
+      <a href="about.html" class="nav-links about ">О НАС</a>
+      <a href="#catalog" class="nav-links books">КНИГИ</a>
+      <a href="new.html" class="nav-links new">НОВИНКИ</a>
+      <a href="contacts.html" class="nav-links contacts">КОНТАКТЫ</a>
+    </nav>
+
+    <div class="slider-container">
+      <div class="slider">
+        <div class="slide active">
+          <div class="text-slider">
+            <h1 class="text1">Открой новую главу</h1>
+            <p class="text2">Нил Гейман однажды сказал это, и мы с ним согласны. Выбирайте свою мечту из тысяч удивительных историй.</p>
+            <button class="slider-btn" data-scroll="books-section" ">ПОДРОБНЕЕ <i class='bx bx-right-arrow-alt' ></i></button>
+          </div>
+          <div class="image-slider">
+            <img class="img-slider" src="image/Frame 216.png" alt="">
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="text-slider">
+            <h1 class="text1">Путешествуй сквозь время</h1>
+            <p class="text2">Каждая книга открывает новые миры. Погрузитесь в приключения и откройте для себя неизведанное.</p>
+            <button class="slider-btn" data-scroll="books-section">ПОДРОБНЕЕ <i class='bx bx-right-arrow-alt' ></i></button>
+          </div>
+          <div class="image-slider">
+            <img class="img-slider" src="image/Frame 1.png" alt="">
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="text-slider">
+            <h1 class="text1">Читай и вдохновляйся</h1>
+            <p class="text2">Истории великих людей и удивительные приключения ждут вас на каждой странице.</p>
+            <button class="slider-btn" data-scroll="books-section">ПОДРОБНЕЕ <i class='bx bx-right-arrow-alt' ></i></button>
+          </div>
+          <div class="image-slider">
+            <img class="img-slider" src="image/Frame 2.png" alt="">
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="text-slider">
+            <h1 class="text1">Книги меняют жизнь</h1>
+            <p class="text2">Лучшие бестселлеры и новые поступления. Найдите свою идеальную книгу сегодня.</p>
+            <button class="slider-btn" data-scroll="books-section">ПОДРОБНЕЕ <i class='bx bx-right-arrow-alt' ></i></button>
+          </div>
+          <div class="image-slider">
+            <img class="img-slider" src="image/Frame 3.png" alt="">
+          </div>
+        </div>
+      </div>
+
+      <div class="radio">
+        <input type="radio" name="slider" data-slide="0" checked>
+        <input type="radio" name="slider" data-slide="1">
+        <input type="radio" name="slider" data-slide="2">
+        <input type="radio" name="slider" data-slide="3">
+      </div>
+    </div>
+
+    <div class="books-section" id="books-section">
+      <div class="books-header">
+        <h2 class="books-title">Популярные книги</h2>
+        <p class="books-subtitle">Откройте для себя лучшие произведения</p>
+      </div>
+      <div class="books-slider-container">
+        <div class="books-track" id="booksTrack"></div>
+      </div>
+      
+      <div class="show-all-container">
+        <button class="show-all-btn" id="showAllBtn">
+          Все книги <i class='bx bx-chevron-down'></i>
+        </button>
+      </div>
+      
+      <div class="all-books-dropdown" id="allBooksDropdown">
+        <div class="all-books-grid" id="allBooksGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast-notification" class="toast-notification">
+    <i class='bx bx-check-circle'></i>
+    <span id="toast-message">Товар добавлен в корзину</span>
+  </div>
+
+  <button id="scrollToTop" class="scroll-to-top">
+    <i class='bx bx-up-arrow-alt'></i>
+  </button>
+
+<div id="cartSidebar" class="cart-sidebar">
+  <div class="cart-sidebar-header">
+    <h3><i class='bx bx-shopping-bag'></i> Моя корзина</h3>
+    <button id="closeCartBtn" class="close-cart-btn"><i class='bx bx-x'></i></button>
+  </div>
+  <div class="cart-sidebar-items" id="cartItems"></div>
+  <div class="cart-sidebar-footer">
+    <div class="cart-summary">
+      <div class="cart-subtotal">
+        <span>Товары (<span id="cartItemsCount">0</span>)</span>
+        <span id="cartSubtotal">0₽</span>
+      </div>
+      <div class="cart-delivery-line">
+        <span>Доставка</span>
+        <span id="cartDelivery">0₽</span>
+      </div>
+      <div class="cart-total">
+        <span>Итого</span>
+        <span id="cartSidebarTotal">0₽</span>
+      </div>
+    </div>
+    <div class="cart-delivery-info" id="cartDeliveryInfo"></div>
+    <div class="cart-agreement">
+      <label class="checkbox-label">
+        <input type="checkbox" id="agreeCheckbox">
+        <span class="checkmark"></span>
+        <span class="agreement-text">Я согласен с <a href="#">условиями</a> и <a href="#">политикой конфиденциальности</a></span>
+      </label>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn" disabled>Оформить заказ →</button>
+  </div>
+</div>
+
+  <div id="cartOverlay" class="cart-overlay"></div>
+
+  <div class="ebook-container container">
+    <div class="ebook-text-container">
+      <h1 class="header-text-ebook"><div class="line"></div> Мир Книг </h1>
+      <p class="text1">Доступ, Чтение, Практика и Взаимодействие с Цифровым Контентом </p>
+      <p class="text2">Погрузитесь в мир знаний с нашей электронной библиотекой. Удобный формат, регулировка шрифта, закладки и заметки — всё для комфортного чтения.</p>
+      <div class="input-container">
+        <input class="ebook-login-input" type="email" placeholder="Электроная Почта" required>
+        <button class="btn-login-ebook">Войти</button>
+      </div>
+      
+    </div>
+    <img src="image/pexels-olha-ruskykh-5984619 1.png" class="hero2Img" alt="">
+  </div>
+
+  <section class="catalog-book container" id="catalog">
+    <div class="catalog-header">
+      <h2 class="catalog-title">Новые Выпуски Книг</h2>
+      <p class="catalog-subtitle">Откройте для себя новинки этого сезона</p>
+    </div>
+    <div class="catalog-grid" id="catalogGrid"></div>
+  </section>
+
+  <div class="recomend-container container">
+    <div class="img-container">
+      <img src="image/Group 347.png" class="img" alt="">
+    </div>
+    <div class="text-recomend-container">
+      <h1 class="text1">Рекомендуем книгу</h1>
+      <div class="block"></div>
+      <p class="text2">Автор: Тимбур Худ</p>
+      <p class="text3">Birds Gonna Be Happy</p>
+      <p class="text4">Удивительная история о свободе, поиске себя и возвращении домой. Книга, которая согреет сердце и подарит надежду.</p>
+      <p class="cost">₽ 2 500</p>
+      <button class="recomend-btn">Добавить в корзину</button>
+    </div>
+  </div>
+
+<div class="info-container-slider container">
+  <div class="slider-wrapper">
+    <div class="info-slide-box active">
+      <div class="text-container">
+        <p class="text1">Сейчас на все книги<br>действует скидка 50%!</p>
+        <p class="text2">Классика, бестселлеры, новинки — всё со скидкой. Предложение ограничено, не упустите возможность пополнить свою библиотеку!</p>
+        <div class="sale-timer">
+          <div class="timer-block">
+            <span class="timer-number" id="days">12</span>
+            <span class="timer-label">ДНЕЙ</span>
+          </div>
+          <div class="timer-block">
+            <span class="timer-number" id="hours">02</span>
+            <span class="timer-label">ЧАС</span>
+          </div>
+          <div class="timer-block">
+            <span class="timer-number" id="minutes">27</span>
+            <span class="timer-label">МИН</span>
+          </div>
+          <div class="timer-block">
+            <span class="timer-number" id="seconds">55</span>
+            <span class="timer-label">СЕК</span>
+          </div>
+        </div>
+      </div>
+      <img src="image/sale1.png" alt="sale 1">
+    </div>
+
+    <div class="info-slide-box">
+      <div class="text-container">
+        <p class="text1">Бесплатная доставка</p>
+        <p class="text2">При заказе от 1500 ₽ доставка по городу бесплатно. Не упустите возможность сэкономить!</p>
+      </div>
+      <img src="image/sale2.png" alt="sale 2">
+    </div>
+
+    <div class="info-slide-box">
+      <div class="text-container">
+        <p class="text1">Подарочный сертификат</p>
+        <p class="text2">Дарите книги близким — сертификаты на любую сумму. Идеальный подарок для любителей чтения.</p>
+      </div>
+      <img src="image/sale3.png" alt="sale 3">
+    </div>
+
+    <div class="info-slide-box">
+      <div class="text-container">
+        <p class="text1">Клубная карта</p>
+        <p class="text2">Скидка 10% на все покупки при оформлении карты. Становитесь участником клуба сегодня!</p>
+      </div>
+      <img src="image/sale4.png" alt="sale 4">
+    </div>
+  </div>
+
+  <div class="info-radio">
+    <input type="radio" name="info-slider" data-info-slide="0" checked>
+    <input type="radio" name="info-slider" data-info-slide="1">
+    <input type="radio" name="info-slider" data-info-slide="2">
+    <input type="radio" name="info-slider" data-info-slide="3">
+  </div>
+</div>
+
+<div class="search-results-overlay" id="searchResultsOverlay">
+  <div class="search-results-modal">
+    <button class="close-results" id="closeResultsBtn">&times;</button>
+    <div class="results-header">
+      <i class='bx bx-search-alt'></i>
+      <h3>Результаты поиска</h3>
+      <p id="resultsCountText"></p>
+    </div>
+    <div class="results-divider"></div>
+    <div class="results-decoration">
+      <div class="decoration-circle"></div>
+      <div class="decoration-circle small"></div>
+    </div>
+    <div class="search-results-grid" id="searchResultsGrid"></div>
+    <div class="results-footer">
+      <i class='bx bx-book-reader'></i>
+      <span>Не нашли нужную книгу? <a href="#" id="contactForBook">Сообщите нам</a>, и мы добавим её</span>
+    </div>
+  </div>
+</div>
+
+<div class="book-modal-overlay" id="bookModalOverlay">
+  <div class="book-modal">
+    <button class="close-modal" id="closeModalBtn">&times;</button>
+    <div class="book-modal-content">
+      <div class="book-modal-left">
+        <img class="book-modal-img" id="modalBookImg" src="" alt="">
+        <div class="book-modal-badge">-50%</div>
+        <div class="book-modal-extra-images" id="modalExtraImages">
+          <div class="extra-image active"></div>
+        </div>
+      </div>
+      <div class="book-modal-right">
+        <div class="book-modal-category" id="modalCategory">Художественная литература</div>
+        <h2 class="book-modal-title" id="modalBookTitle"></h2>
+        <div class="book-modal-author-wrapper">
+          <i class='bx bx-user'></i>
+          <span class="book-modal-author" id="modalBookAuthor"></span>
+        </div>
+        
+        <div class="book-modal-rating">
+          <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star-half'></i>
+          </div>
+          <span class="rating-value">4.5</span>
+          <span class="rating-count">(128 отзывов)</span>
+        </div>
+        
+        <div class="book-modal-price">
+          <span class="old-price" id="modalOldPrice"></span>
+          <span class="new-price" id="modalNewPrice"></span>
+          <span class="discount-tag">Скидка 50%</span>
+        </div>
+        
+        <div class="book-modal-stock">
+          <i class='bx bx-check-circle'></i>
+          <span>Есть в наличии</span>
+        </div>
+        
+        <div class="book-modal-details">
+          <h4>Характеристики</h4>
+          <div class="details-grid">
+            <div class="detail-item">
+              <span class="detail-label">📖 Страниц:</span>
+              <span class="detail-value" id="modalPages">320</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">📅 Год издания:</span>
+              <span class="detail-value" id="modalYear">2023</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">🌐 Язык:</span>
+              <span class="detail-value">Русский</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">📚 Переплет:</span>
+              <span class="detail-value">Твердый</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">⚖️ Вес:</span>
+              <span class="detail-value" id="modalWeight">450 г</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">📏 Формат:</span>
+              <span class="detail-value">145×215 мм</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">🏷️ ISBN:</span>
+              <span class="detail-value" id="modalIsbn">978-5-17-123456-7</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">📦 Тираж:</span>
+              <span class="detail-value" id="modalCirculation">5000 экз.</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="book-modal-description">
+          <h4>Описание</h4>
+          <p id="modalDescription"></p>
+        </div>
+        
+        <div class="book-modal-actions">
+          <div class="quantity-selector">
+            <button class="quantity-decr" id="modalQuantityDecr">-</button>
+            <span class="quantity-value" id="modalQuantity">1</span>
+            <button class="quantity-incr" id="modalQuantityIncr">+</button>
+          </div>
+          <button class="modal-add-to-cart" id="modalAddToCartBtn">
+            <i class='bx bx-cart-add'></i> В корзину
+          </button>
+          <button class="modal-wishlist" id="modalWishlistBtn">
+            <i class='bx bx-heart'></i>
+          </button>
+        </div>
+        
+        <div class="book-modal-delivery">
+          <div class="delivery-item">
+            <i class='bx bx-truck'></i>
+            <span>Бесплатная доставка от 1500 ₽</span>
+          </div>
+          <div class="delivery-item">
+            <i class='bx bx-purchase-tag'></i>
+            <span>Возврат в течение 14 дней</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="wishlistSidebar" class="wishlist-sidebar">
+  <div class="wishlist-sidebar-header">
+    <h3><i class='bx bx-heart'></i> Мои избранные</h3>
+    <button id="closeWishlistBtn" class="close-wishlist-btn"><i class='bx bx-x'></i></button>
+  </div>
+  <div class="wishlist-sidebar-items" id="wishlistItems"></div>
+  <div class="wishlist-sidebar-footer">
+    <div class="wishlist-summary">
+      <div class="wishlist-count">
+        <span>Всего книг: <span id="wishlistCount">0</span></span>
+      </div>
+    </div>
+    <button class="add-all-to-cart-btn" id="addAllToCartBtn">Добавить все в корзину</button>
+    <p class="wishlist-info">Сохраняйте понравившиеся книги и возвращайтесь к ним позже</p>
+  </div>
+</div>
+
+<div id="wishlistOverlay" class="wishlist-overlay"></div>
+
+<footer class="footer-container container">
+  <div class="footer-row">
+    <div class="footer-col">
+      <div class="footer-logo-wrapper">
+        <img src="image/logo.png" alt="logo" class="footer-logo">
+        <div class="footer-logo-text">
+          <span style="color: #ED553B; font-size: 22px; font-weight: 700;">Мир</span>
+          <span style="font-weight: 700;"> Книг </span>
+        </div>
+      </div>
+      <p class="footer-description">Усердная работа над собой приносит плоды. Каждая прочитанная книга — это шаг к успеху.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-col-title">Навигация</h4>
+      <div class="footer-nav">
+        <a href="index.html" class="nav-links active home">ГЛАВНАЯ</a>
+        <a href="about.html" class="nav-links about">О НАС</a>
+        <a href="#catalog" class="nav-links books">КНИГИ</a>
+        <a href="new.html" class="nav-links new">НОВИНКИ</a>
+        <a href="contacts.html" class="nav-links contacts">КОНТАКТЫ</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-col-title">Контакты</h4>
+      <div class="footer-contacts">
+        <p><i class='bx bx-phone'></i> +7 928 799-07-46, +7 918 812-68-44.</p>
+        <p><i class='bx bx-envelope'></i> info@isting.ru</p>
+        <p><i class='bx bx-map'></i> г. Назрань, ул. Картоева, 154, ТК «Ковчег» (левое крыло). </p>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-col-title">Подписка</h4>
+      <p class="footer-subscribe-text">Получайте новости о скидках и новинках</p>
+      <div class="footer-subscribe">
+        <input type="email" placeholder="Ваш Email" class="footer-input">
+        <button class="footer-btn">Подписаться</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="copyright">© 2026 Мир книг. Все права защищены.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Политика конфиденциальности</a>
+      <a href="#">Пользовательское соглашение</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="js/utils.js "></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/wishlist.js"></script>
+  <script src="js/slider.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/account.js"></script>
+</body>
+</html>
